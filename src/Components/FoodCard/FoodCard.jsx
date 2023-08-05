@@ -9,7 +9,8 @@ const FoodCard = ({ item }) => {
                 <h2 className="card-title">{name}</h2>
                 <h6>{recipe}</h6>
                 <div className="card-actions mx-auto">
-                    <button className="btn btn-primary">Add To Cart</button>
+                    <button className="btn btn-outline border-0 border-b-4 uppercase text-2xl p-3
+                ">Add To Cart</button>
                 </div>
             </div>
         </div>
