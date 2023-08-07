@@ -2,10 +2,15 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import loginImg from '../../assets/others/authentication2.png';
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true)
+
+    const { signIn } = useContext(AuthContext);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -17,6 +22,12 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        signIn(email, password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+
     }
     const handleBulidedCaptcha = () => {
         const user_captcha_value = captchaRef.current.value;
@@ -64,6 +75,7 @@ const Login = () => {
                             <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
                         </div>
                     </form>
+                    <p className='py-8 text-center text-teal-600'><small>New Here? <Link to='/signup'>Create an account</Link></small></p>
                 </div>
             </div>
         </div>
