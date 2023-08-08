@@ -1,14 +1,15 @@
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import loginImg from '../../assets/others/authentication2.png';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const captchaRef = useRef(null);
+
     const [disabled, setDisabled] = useState(true)
 
     const { signIn } = useContext(AuthContext);
@@ -27,11 +28,21 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+                Swal.fire({
+                    title: 'User login successfully.',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+
             })
 
     }
-    const handleBulidedCaptcha = () => {
-        const user_captcha_value = captchaRef.current.value;
+    const handleBulidedCaptcha = (e) => {
+        const user_captcha_value = e.target.value;
         if (validateCaptcha(user_captcha_value)) {
             setDisabled(false);
         }
@@ -71,9 +82,9 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="form-control">
-                                <input ref={captchaRef} type="text" name='captcha' placeholder="Type the text above" className="input input-bordered" required />
+                                <input onBlur={handleBulidedCaptcha} type="text" name='captcha' placeholder="Type the text above" className="input input-bordered" required />
                                 <LoadCanvasTemplate />
-                                <button onClick={handleBulidedCaptcha} className="btn btn-outline btn-xs mt-2">Valided</button>
+
 
                             </div>
                             <div className="form-control mt-6">
