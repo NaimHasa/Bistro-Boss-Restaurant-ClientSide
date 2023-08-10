@@ -1,12 +1,44 @@
 import { Helmet } from "react-helmet-async";
 import useCarts from './../../../hooks/useCarts';
 import { FcDeleteRow } from "react-icons/fc";
+import Swal from "sweetalert2";
 
 const MyCart = () => {
-    const [cart] = useCarts();
+    const [cart, refetch] = useCarts();
+    const handleDeleted = item => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/carts/${item._id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
+
+    }
+
+    //How dose reduce works
     const total = cart.reduce((sum, item) => item.price + sum, 0)
     return (
-        <div>
+        <div className="w-full">
             <Helmet>
                 <title>Bistro Boss || My Cart</title>
             </Helmet>
@@ -49,7 +81,7 @@ const MyCart = () => {
                                 </td>
                                 <td>{item.price}</td>
                                 <th>
-                                    <button className="btn btn-ghost btn-sm text-red-500"><FcDeleteRow></FcDeleteRow> Deleted</button>
+                                    <button onClick={() => handleDeleted(item)} className="btn btn-ghost btn-sm text-red-500"><FcDeleteRow></FcDeleteRow> Deleted</button>
                                 </th>
                             </tr>)
                         }
