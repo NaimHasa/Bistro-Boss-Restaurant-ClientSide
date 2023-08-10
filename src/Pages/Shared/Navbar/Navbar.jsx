@@ -20,10 +20,9 @@ const Navbar = () => {
             <li><Link to='/menu'>Our Menu</Link></li>
             <li><Link to='/order/salad'>Order</Link></li>
             <li><Link to='/secret'>Secret</Link></li>
-
             <li><a>Contact Us</a></li>
-            <li><a>DeshBoard</a></li>
             <li><a>Our Shop</a></li>
+
 
 
             {
@@ -61,7 +60,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <li><Link to='/'>
+                <li><Link to='/deshboard/mycart'>
                     <button className="btn">
                         <AiOutlineShoppingCart ></AiOutlineShoppingCart>
                         <div className="badge badge-secondary">+{cart?.length || 0}</div>
