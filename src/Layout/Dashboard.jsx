@@ -1,7 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
-import { FcHome, FcCalendar, FcMoneyTransfer, FcPodiumWithAudience, FcMenu, FcShop, FcContacts } from "react-icons/fc";
+import { FcHome, FcCalendar, FcMoneyTransfer, FcAddRow, FcPodiumWithAudience, FcMenu, FcShop, FcContacts, FcConferenceCall, FcTodoList } from "react-icons/fc";
 
 const Dashboard = () => {
+    const isAdmin = true;
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -14,11 +15,24 @@ const Dashboard = () => {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content uppercase">
-                    {/* Sidebar content here */}
-                    <li><Link to='/deshboard/home'><FcHome></FcHome> User Home </Link></li>
-                    <li><Link to='/deshboard/reservation'><FcCalendar></FcCalendar> Reservation </Link></li>
-                    <li><Link to='/deshboard/paymenthistory'><FcMoneyTransfer></FcMoneyTransfer> Payment History </Link></li>
-                    <li><Link to='/deshboard/mycart'><FcPodiumWithAudience></FcPodiumWithAudience> My Cart </Link></li>
+                    {
+                        isAdmin ? <>
+                            <li><Link to='/deshboard/adminhome'><FcHome></FcHome> Admin Home</Link></li>
+                            <li><Link to='/deshboard/additems'><FcAddRow></FcAddRow> add items</Link></li>
+                            <li><Link to='/deshboard/manageitems'><FcTodoList></FcTodoList> manage items</Link></li>
+                            <li><Link to='/deshboard/managebookings'><FcShop></FcShop> Manage bookings</Link></li>
+                            <li><Link to='/deshboard/allusers'><FcConferenceCall></FcConferenceCall> all users</Link></li>
+
+                        </>
+                            :
+                            <>
+                                <li><Link to='/deshboard/home'><FcHome></FcHome> User Home </Link></li>
+                                <li><Link to='/deshboard/reservation'><FcCalendar></FcCalendar> Reservation </Link></li>
+                                <li><Link to='/deshboard/paymenthistory'><FcMoneyTransfer></FcMoneyTransfer> Payment History </Link></li>
+                                <li><Link to='/deshboard/mycart'><FcPodiumWithAudience></FcPodiumWithAudience> My Cart </Link></li>
+                            </>
+                    }
+
 
                     <div className="divider"></div>
                     <li><Link to='/'> <FcHome></FcHome> Home </Link></li>

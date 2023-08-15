@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -94,11 +95,12 @@ const SignUp = () => {
                                 </label>
                             </div>
 
-                            <div className="form-control mt-4">
+                            <div className="form-control mt-2">
                                 <input className="btn btn-primary" type="submit" value="signup" />
                             </div>
                         </form>
-                        <p className='py-4 text-center text-teal-600'><small>Already have a Square account? <Link to='/login'>Log in.</Link></small></p>
+                        <p className='py-2 text-center text-teal-600'><small>Already have a Square account? <Link to='/login'>Log in.</Link></small></p>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
