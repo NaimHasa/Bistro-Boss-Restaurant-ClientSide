@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { FcDeleteRow, FcPortraitMode } from "react-icons/fc";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
 
@@ -8,9 +9,30 @@ const AllUsers = () => {
         return res.json();
 
     })
-    const handleUserDeleted = user => {
+    const handleMakeAdmin = user => {
+        fetch(`http://localhost:5000/users/admin/${user._id}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${user.name} is an Admin Now!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+
+            })
+
 
     }
+    // const handleUserDeleted = user => {
+
+    // }
     return (
         <div className="w-full p-8">
             <h1>All Users Info</h1>
@@ -36,9 +58,10 @@ const AllUsers = () => {
                                 <td>{user.email}</td>
                                 <td>
                                     {
-                                        user.role === 'admin' ? 'admin' : <button className="btn btn-ghost btn-sm bg-orange-400">
-                                            <FcPortraitMode className="w-[35px]"></FcPortraitMode>
-                                        </button>
+                                        user.role === 'admin' ? 'admin' :
+                                            <button onClick={() => handleMakeAdmin(user)} className="btn btn-ghost btn-sm text-red-800"><FcPortraitMode className="w-[35px]"></FcPortraitMode></button>
+
+
                                     }
                                 </td>
                                 <td>
