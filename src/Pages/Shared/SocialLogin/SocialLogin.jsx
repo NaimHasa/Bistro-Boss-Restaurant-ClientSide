@@ -13,7 +13,7 @@ const SocialLogin = () => {
         googleSignIn()
             .then((result) => {
                 const logged = result.user;
-                console.log(logged);
+                // console.log(logged);
                 const loggedUser = { name: logged.displayName, email: logged.email }
                 fetch('http://localhost:5000/users', {
                     method: "POST",

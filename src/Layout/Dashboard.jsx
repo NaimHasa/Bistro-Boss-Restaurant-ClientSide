@@ -1,8 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import { FcHome, FcCalendar, FcMoneyTransfer, FcAddRow, FcPodiumWithAudience, FcMenu, FcShop, FcContacts, FcConferenceCall, FcTodoList } from "react-icons/fc";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-    const isAdmin = true;
+    // const isAdmin = true;
+    const [isAdmin] = useAdmin();
+
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -18,8 +21,8 @@ const Dashboard = () => {
                     {
                         isAdmin ? <>
                             <li><Link to='/deshboard/adminhome'><FcHome></FcHome> Admin Home</Link></li>
-                            <li><Link to='/deshboard/additems'><FcAddRow></FcAddRow> add items</Link></li>
-                            <li><Link to='/deshboard/manageitems'><FcTodoList></FcTodoList> manage items</Link></li>
+                            <li><Link to='/deshboard/additems'><FcAddRow></FcAddRow> Add items</Link></li>
+                            <li><Link to='/deshboard/manageitems'><FcTodoList></FcTodoList> Manage items</Link></li>
                             <li><Link to='/deshboard/managebookings'><FcShop></FcShop> Manage bookings</Link></li>
                             <li><Link to='/deshboard/allusers'><FcConferenceCall></FcConferenceCall> all users</Link></li>
 
