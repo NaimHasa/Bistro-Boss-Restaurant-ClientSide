@@ -21,7 +21,7 @@ const Dashboard = () => {
                     {
                         isAdmin ? <>
                             <li><Link to='/deshboard/adminhome'><FcHome></FcHome> Admin Home</Link></li>
-                            <li><Link to='/deshboard/additems'><FcAddRow></FcAddRow> Add items</Link></li>
+                            <li><Link to='/deshboard/addItem'><FcAddRow></FcAddRow> Add an items</Link></li>
                             <li><Link to='/deshboard/manageitems'><FcTodoList></FcTodoList> Manage items</Link></li>
                             <li><Link to='/deshboard/managebookings'><FcShop></FcShop> Manage bookings</Link></li>
                             <li><Link to='/deshboard/allusers'><FcConferenceCall></FcConferenceCall> all users</Link></li>
