@@ -15,6 +15,7 @@ import AllUsers from "../Pages/Deshboard/AllUsers/AllUsers";
 import AddItem from "../Pages/Deshboard/AddItem/AddItem";
 import AdminRoute from "./AdminRoute";
 import ManageItems from "../Pages/Deshboard/ManageItems/ManageItems";
+import PayMent from "../Pages/Deshboard/PayMent/PayMent";
 
 
 export const router = createBrowserRouter([
@@ -56,14 +57,23 @@ export const router = createBrowserRouter([
         path: 'deshboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
+
+            //User Route 
             {
                 path: 'mycart',
                 element: <MyCart></MyCart>
 
             },
             {
+                path: 'payment',
+                element: <PayMent></PayMent>
+            },
+
+
+            //Admin Routes 
+            {
                 path: 'allusers',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
 
             },
             {
