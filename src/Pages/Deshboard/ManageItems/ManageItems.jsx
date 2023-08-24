@@ -1,10 +1,45 @@
+import { FcEmptyTrash } from "react-icons/fc";
 import SectionTitle from "../../../Components/SectionTittle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
+import { MdEditDocument } from "react-icons/md";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const ManageItems = () => {
-    const [menu] = useMenu();
+    const [menu, , refetch] = useMenu();
+    const [axiosSecure] = useAxiosSecure();
+
+    const handleDeleted = item => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/menu/${item._id}`)
+                    .then(res => {
+                        console.log('deleted res', res.data);
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+
+            }
+        })
+    }
+
     return (
-        <div className="w-full">
+        <div className="w-full bg-white">
             <SectionTitle heading="Hurry Up!!" subHeading="MANAGE ALL ITEMS"></SectionTitle>
             <div className="overflow-x-auto">
                 <table className="table">
@@ -12,7 +47,7 @@ const ManageItems = () => {
                     <thead >
                         <tr className="text-md font-bold text-black uppercase">
                             <th>
-
+                                #
                             </th>
                             <th>Item Image</th>
                             <th>Item Name</th>
@@ -47,10 +82,10 @@ const ManageItems = () => {
                                     }
                                 </td>
                                 <td>
-                                    <button className="btn btn-ghost btn-xs">Update</button>
+                                    <button className="btn btn-ghost btn-md bg-orange-400"><MdEditDocument></MdEditDocument></button>
                                 </td>
                                 <td>
-                                    <button className="btn btn-ghost btn-xs">details</button>
+                                    <button onClick={() => handleDeleted(item)} className="btn btn-outline btn-error bg-red-600"><FcEmptyTrash></FcEmptyTrash></button>
                                 </td>
                             </tr>)
                         }
