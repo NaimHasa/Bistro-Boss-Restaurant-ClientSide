@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 const MyCart = () => {
     const [cart, refetch] = useCarts();
+    //How dose reduce works
+    const total = cart.reduce((sum, item) => item.price + sum, 0)
     const handleDeleted = item => {
         Swal.fire({
             title: 'Are you sure?',
@@ -22,7 +24,7 @@ const MyCart = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.deletedCount > 0) {
+                        if (data.deletedCount > 1) {
                             refetch();
                             Swal.fire(
                                 'Deleted!',
@@ -36,8 +38,7 @@ const MyCart = () => {
 
     }
 
-    //How dose reduce works
-    const total = cart.reduce((sum, item) => item.price + sum, 0)
+
     return (
         <div className="w-full">
             <Helmet>

@@ -15,6 +15,7 @@ import AllUsers from "../Pages/Deshboard/AllUsers/AllUsers";
 import AddItem from "../Pages/Deshboard/AddItem/AddItem";
 import AdminRoute from "./AdminRoute";
 import ManageItems from "../Pages/Deshboard/ManageItems/ManageItems";
+import Payment from "../Pages/Deshboard/PayMent/PayMent";
 // import PayMent from "../Pages/Deshboard/PayMent/PayMent";
 
 
@@ -62,6 +63,11 @@ export const router = createBrowserRouter([
             {
                 path: 'mycart',
                 element: <MyCart></MyCart>
+
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
 
             },
 
