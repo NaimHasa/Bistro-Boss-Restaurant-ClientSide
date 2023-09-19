@@ -12,18 +12,20 @@ const CheckoutForm = ({ price }) => {
     const [axiosSecure] = useAxiosSecure();
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
+    const [processing, setProcessing] = useState(false);
+    const [transactionId, setTransactionId] = useState('');
 
 
 
     useEffect(() => {
-
-        axiosSecure.post("/create-payment-intent", { price })
-            .then(res => {
-                console.log(res.data.clientSecret)
-                setClientSecret(res.data.clientSecret);
-            })
-
-    }, [])
+        if (price > 0) {
+            axiosSecure.post('/create-payment-intent', { price })
+                .then(res => {
+                    // console.log(res.data.clientSecret)
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
+    }, [price, axiosSecure])
 
     //form handle submit 
     const handleSubmit = async (event) => {
@@ -50,8 +52,10 @@ const CheckoutForm = ({ price }) => {
             setCardError(error.message);
         } else {
             setCardError('');
-            console.log('[PaymentMethod]', paymentMethod);
+            // console.log('[PaymentMethod]', paymentMethod);
         }
+        setProcessing(true);
+
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -68,7 +72,15 @@ const CheckoutForm = ({ price }) => {
         if (confirmError) {
             console.log(confirmError);
         }
-        console.log(paymentIntent)
+        console.log('payment Intent', paymentIntent);
+        setProcessing(false)
+
+        if (paymentIntent.status === 'succeeded') {
+            setTransactionId(paymentIntent.id)
+            const transactionId = paymentIntent.id;
+
+            //ToDo Next steps
+        }
 
     }
 
@@ -92,12 +104,15 @@ const CheckoutForm = ({ price }) => {
                         },
                     }}
                 />
-                <button className="btn btn-outline btn-success mt-8" type="submit" disabled={!stripe}>
+                <button className="btn btn-outline btn-success mt-8" type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </form>
             {
                 cardError && <p className='text-red-600 ml-8'>{cardError}</p>
+            }
+            {
+                transactionId && <p className='text-green-500'>Transaction complete with transactionId: {transactionId}</p>
             }
         </>
     );
