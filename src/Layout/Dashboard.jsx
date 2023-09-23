@@ -29,7 +29,7 @@ const Dashboard = () => {
                         </>
                             :
                             <>
-                                <li><Link to='/deshboard/home'><FcHome></FcHome> User Home </Link></li>
+                                <li><Link to='/deshboard/userhome'><FcHome></FcHome> User Home </Link></li>
                                 <li><Link to='/deshboard/reservation'><FcCalendar></FcCalendar> Reservation </Link></li>
                                 <li><Link to='/deshboard/paymenthistory'><FcMoneyTransfer></FcMoneyTransfer> Payment History </Link></li>
                                 <li><Link to='/deshboard/mycart'><FcPodiumWithAudience></FcPodiumWithAudience> My Cart </Link></li>

@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCarts from "../../../hooks/useCarts";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
+    const [isAdmin] = useAdmin();
     const { user, logOut } = useContext(AuthContext);
     const [cart] = useCarts();
 
@@ -19,7 +21,11 @@ const Navbar = () => {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/menu'>Our Menu</Link></li>
             <li><Link to='/order/salad'>Order</Link></li>
-            <li><Link to='/secret'>Secret</Link></li>
+            {
+                isAdmin ? <li><Link to='/deshboard/adminhome'>Deshboard</Link></li> :
+                    <li><Link to='/deshboard/userhome'>Deshboard</Link></li>
+
+            }
             <li><a>Contact Us</a></li>
             <li><a>Our Shop</a></li>
 
