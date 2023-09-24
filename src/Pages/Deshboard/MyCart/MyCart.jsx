@@ -7,7 +7,11 @@ import { Link } from "react-router-dom";
 const MyCart = () => {
     const [cart, refetch] = useCarts();
     //How dose reduce works
-    const total = cart.reduce((sum, item) => item.price + sum, 0)
+    const carTotal = cart.reduce((sum, item) => item.price + sum, 0);
+    const total = parseFloat(carTotal).toFixed(2);
+
+
+
     const handleDeleted = item => {
         Swal.fire({
             title: 'Are you sure?',
@@ -19,7 +23,7 @@ const MyCart = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/carts/${item._id}`, {
+                fetch(`https://bistro-boss-restaurant-server-side.vercel.app/carts/${item._id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

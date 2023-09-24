@@ -15,7 +15,7 @@ const SocialLogin = () => {
                 const logged = result.user;
                 // console.log(logged);
                 const loggedUser = { name: logged.displayName, email: logged.email }
-                fetch('http://localhost:5000/users', {
+                fetch('https://bistro-boss-restaurant-server-side.vercel.app/users', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'
